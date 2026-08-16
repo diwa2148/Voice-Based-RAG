@@ -1,0 +1,11 @@
+.env
+.env.local
+.env.*.local
+__pycache__/
+*.pyc
+.pytest_cache/
+qdrant_data/
+bm25_index.pkl
+dist/
+node_modules/
+backend/bm25_index.pkl

@@ -1,0 +1,335 @@
+{
+  "timestamp": "2026-08-16 22:04:21",
+  "total_queries_tested": 15,
+  "bottleneck_stage": "llm_generation_ms",
+  "bottleneck_p50_ms": 2509.3,
+  "percentiles": {
+    "stt_ms": {
+      "p50": 0.0,
+      "p70": 0.0,
+      "p100": 0.0
+    },
+    "input_guardrail_ms": {
+      "p50": 0.02,
+      "p70": 0.02,
+      "p100": 0.06
+    },
+    "query_embedding_ms": {
+      "p50": 382.17,
+      "p70": 458.65,
+      "p100": 1355.22
+    },
+    "bm25_ms": {
+      "p50": 0.49,
+      "p70": 0.57,
+      "p100": 0.72
+    },
+    "dense_retrieval_ms": {
+      "p50": 3.29,
+      "p70": 4.14,
+      "p100": 5.82
+    },
+    "hybrid_fusion_ms": {
+      "p50": 0.04,
+      "p70": 0.06,
+      "p100": 0.08
+    },
+    "retrieval_guardrail_ms": {
+      "p50": 0.01,
+      "p70": 0.01,
+      "p100": 0.01
+    },
+    "reranking_ms": {
+      "p50": 0.0,
+      "p70": 0.0,
+      "p100": 0.0
+    },
+    "llm_generation_ms": {
+      "p50": 2509.3,
+      "p70": 5908.25,
+      "p100": 7177.73
+    },
+    "output_guardrail_ms": {
+      "p50": 0.01,
+      "p70": 0.11,
+      "p100": 1.87
+    },
+    "total_latency_ms": {
+      "p50": 2878.41,
+      "p70": 6290.23,
+      "p100": 7983.2
+    }
+  },
+  "query_results": [
+    {
+      "query": "What languages are included in the MS MARCO XI dataset?",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 1048.03,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.01,
+        "bm25_ms": 0.72,
+        "query_embedding_ms": 602.38,
+        "dense_retrieval_ms": 2.68,
+        "hybrid_fusion_ms": 0.06,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 442.83,
+        "output_guardrail_ms": 0.01
+      }
+    },
+    {
+      "query": "Retrieval Augmented Generation architecture and vector database details",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 2878.41,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.01,
+        "bm25_ms": 0.32,
+        "query_embedding_ms": 363.95,
+        "dense_retrieval_ms": 4.74,
+        "hybrid_fusion_ms": 0.07,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 2509.3,
+        "output_guardrail_ms": 0.27
+      }
+    },
+    {
+      "query": "Sarvam Saaras v3 speech to text model features",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 6537.34,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.01,
+        "bm25_ms": 0.41,
+        "query_embedding_ms": 357.43,
+        "dense_retrieval_ms": 2.17,
+        "hybrid_fusion_ms": 0.03,
+        "retrieval_guardrail_ms": 0.0,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 6177.65,
+        "output_guardrail_ms": 0.01
+      }
+    },
+    {
+      "query": "BAAI BGE-M3 dense and sparse embedding dimensions",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 5301.77,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.42,
+        "query_embedding_ms": 466.72,
+        "dense_retrieval_ms": 4.2,
+        "hybrid_fusion_ms": 0.08,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 4830.67,
+        "output_guardrail_ms": 0.01
+      }
+    },
+    {
+      "query": "Qdrant vector search and payload filtering capabilities",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 658.5,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.56,
+        "query_embedding_ms": 382.17,
+        "dense_retrieval_ms": 4.81,
+        "hybrid_fusion_ms": 0.06,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 271.36,
+        "output_guardrail_ms": 0.01
+      }
+    },
+    {
+      "query": "\u098f\u09ae\u098f\u09b8 \u09ae\u09be\u09b0\u09cd\u0995\u09cb \u098f\u0995\u09be\u09a6\u09b6 \u09a1\u09c7\u099f\u09be\u09b8\u09c7\u099f\u09c7\u09b0 \u09ac\u09bf\u09ac\u09b0\u09a3 \u0995\u09bf?",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 909.88,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.03,
+        "bm25_ms": 0.61,
+        "query_embedding_ms": 393.7,
+        "dense_retrieval_ms": 4.4,
+        "hybrid_fusion_ms": 0.04,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 511.64,
+        "output_guardrail_ms": 0.01
+      }
+    },
+    {
+      "query": "\u0939\u093f\u0902\u0926\u0940 \u092e\u0947\u0902 \u090f\u092e\u090f\u0938 \u092e\u093e\u0930\u094d\u0915\u094b dataset \u0915\u0940 \u091c\u093e\u0928\u0915\u093e\u0930\u0940 \u0926\u0940\u091c\u093f\u090f",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 7553.21,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.03,
+        "bm25_ms": 0.67,
+        "query_embedding_ms": 370.18,
+        "dense_retrieval_ms": 3.29,
+        "hybrid_fusion_ms": 0.03,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 7177.73,
+        "output_guardrail_ms": 1.87
+      }
+    },
+    {
+      "query": "\u0ba4\u0bae\u0bbf\u0bb4\u0bcd \u0bae\u0bca\u0bb4\u0bbf\u0baf\u0bbf\u0bb2\u0bcd \u0baa\u0bc6\u0bb1\u0baa\u0bcd\u0baa\u0b9f\u0bcd\u0b9f \u0c35\u0c3f\u0c35\u0c30\u0b99\u0bcd\u0b95\u0bb3\u0bcd \u0b8e\u0ba9\u0bcd\u0ba9?",
+      "status": "hallucination_refused",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 7983.2,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.53,
+        "query_embedding_ms": 1355.22,
+        "dense_retrieval_ms": 3.2,
+        "hybrid_fusion_ms": 0.02,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 6624.3,
+        "output_guardrail_ms": 0.36
+      }
+    },
+    {
+      "query": "\u0c24\u0c46\u0c32\u0c41\u0c17\u0c41 \u0c38\u0c47\u0c15\u0c30\u0c23 \u0c06\u0c27\u0c3e\u0c30\u0c02\u0c17\u0c3e \u0c35\u0c3f\u0c35\u0c30\u0c3e\u0c32\u0c41 \u0c35\u0c3f\u0c35\u0c30\u0c3f\u0c02\u0c1a\u0c02\u0c21\u0c3f",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 1026.89,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.03,
+        "bm25_ms": 0.67,
+        "query_embedding_ms": 426.39,
+        "dense_retrieval_ms": 3.5,
+        "hybrid_fusion_ms": 0.02,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 596.86,
+        "output_guardrail_ms": 0.01
+      }
+    },
+    {
+      "query": "How does BM25 keyword search combine with Qdrant vector search?",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 7357.29,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.01,
+        "bm25_ms": 0.34,
+        "query_embedding_ms": 376.97,
+        "dense_retrieval_ms": 3.11,
+        "hybrid_fusion_ms": 0.05,
+        "retrieval_guardrail_ms": 0.0,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 6976.96,
+        "output_guardrail_ms": 0.15
+      }
+    },
+    {
+      "query": "Explain Sarvam-105B LLM prompt construction and grounding instructions",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 794.74,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.57,
+        "query_embedding_ms": 470.53,
+        "dense_retrieval_ms": 2.13,
+        "hybrid_fusion_ms": 0.05,
+        "retrieval_guardrail_ms": 0.0,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 321.94,
+        "output_guardrail_ms": 0.01
+      }
+    },
+    {
+      "query": "What are the 3 levels of guardrails in this RAG system?",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 4702.98,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.06,
+        "bm25_ms": 0.49,
+        "query_embedding_ms": 356.93,
+        "dense_retrieval_ms": 5.82,
+        "hybrid_fusion_ms": 0.06,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 4339.91,
+        "output_guardrail_ms": 0.14
+      }
+    },
+    {
+      "query": "Invalid quantum computing cryptography supercomputer query test",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 726.18,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.31,
+        "query_embedding_ms": 379.73,
+        "dense_retrieval_ms": 3.91,
+        "hybrid_fusion_ms": 0.04,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 342.42,
+        "output_guardrail_ms": 0.01
+      }
+    },
+    {
+      "query": "Fixed-size vs Sentence vs Semantic chunking strategy comparison",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 6667.81,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.01,
+        "bm25_ms": 0.32,
+        "query_embedding_ms": 360.72,
+        "dense_retrieval_ms": 3.28,
+        "hybrid_fusion_ms": 0.03,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 6303.7,
+        "output_guardrail_ms": 0.0
+      }
+    },
+    {
+      "query": "Full process latency target under 200 ms optimization",
+      "status": "success",
+      "strategy_used": "metadata_aware",
+      "total_latency_ms": 810.27,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.01,
+        "bm25_ms": 0.31,
+        "query_embedding_ms": 503.62,
+        "dense_retrieval_ms": 2.93,
+        "hybrid_fusion_ms": 0.03,
+        "retrieval_guardrail_ms": 0.0,
+        "reranking_ms": 0.0,
+        "llm_generation_ms": 303.61,
+        "output_guardrail_ms": 0.01
+      }
+    }
+  ]
+}

@@ -1,0 +1,717 @@
+{
+  "timestamp": "2026-08-16 22:37:28",
+  "execution_environment": "LIVE_HOSTED_APIS",
+  "stt_service": {
+    "model": "saaras:v3",
+    "mode": "LIVE_API",
+    "p50_latency_ms": 485.02
+  },
+  "total_queries_tested": 15,
+  "languages_tested": [
+    "en",
+    "hi",
+    "bn",
+    "ta",
+    "te"
+  ],
+  "stage_latency_percentiles": {
+    "stt_ms": {
+      "p50": 0.0,
+      "p70": 0.0,
+      "p100": 437.65
+    },
+    "input_guardrail_ms": {
+      "p50": 0.02,
+      "p70": 0.02,
+      "p100": 0.04
+    },
+    "query_embedding_ms": {
+      "p50": 449.18,
+      "p70": 464.36,
+      "p100": 614.46
+    },
+    "bm25_ms": {
+      "p50": 0.58,
+      "p70": 0.7,
+      "p100": 0.86
+    },
+    "dense_retrieval_ms": {
+      "p50": 5.44,
+      "p70": 6.98,
+      "p100": 24.37
+    },
+    "hybrid_fusion_ms": {
+      "p50": 0.06,
+      "p70": 0.08,
+      "p100": 3.91
+    },
+    "retrieval_guardrail_ms": {
+      "p50": 0.01,
+      "p70": 0.01,
+      "p100": 0.02
+    },
+    "reranking_ms": {
+      "p50": 810.94,
+      "p70": 918.71,
+      "p100": 2493.26
+    },
+    "llm_generation_ms": {
+      "p50": 3798.94,
+      "p70": 5060.43,
+      "p100": 7394.46
+    },
+    "output_guardrail_ms": {
+      "p50": 0.01,
+      "p70": 0.17,
+      "p100": 4.18
+    },
+    "total_latency_ms": {
+      "p50": 5612.92,
+      "p70": 6633.3,
+      "p100": 8761.58
+    }
+  },
+  "retrieval_metrics": {
+    "recall_at_5": 0.75,
+    "precision_at_5": 0.2639,
+    "mrr_at_5": 0.5694
+  },
+  "grounding_metrics": {
+    "grounded_answer_rate_pct": 100.0,
+    "refusal_correctness_pct": 100.0,
+    "unsupported_answer_rate_pct": 20.0
+  },
+  "adaptive_reranking_comparison": {
+    "mode_a_always_rerank": {
+      "p50_ms": 876.63,
+      "mrr": 0.5417
+    },
+    "mode_b_adaptive": {
+      "p50_ms": 3885.88,
+      "mrr": 0.5694
+    }
+  },
+  "chunking_strategies_eval": [
+    {
+      "strategy": "fixed_size",
+      "chunk_count": 6,
+      "avg_char_length": 90.8,
+      "chunking_latency_ms": 0.14
+    },
+    {
+      "strategy": "fixed_overlap",
+      "chunk_count": 7,
+      "avg_char_length": 95.3,
+      "chunking_latency_ms": 0.15
+    },
+    {
+      "strategy": "sentence",
+      "chunk_count": 2,
+      "avg_char_length": 272.5,
+      "chunking_latency_ms": 0.12
+    },
+    {
+      "strategy": "paragraph",
+      "chunk_count": 2,
+      "avg_char_length": 273.0,
+      "chunking_latency_ms": 0.07
+    },
+    {
+      "strategy": "recursive",
+      "chunk_count": 6,
+      "avg_char_length": 89.8,
+      "chunking_latency_ms": 0.38
+    },
+    {
+      "strategy": "semantic",
+      "chunk_count": 3,
+      "avg_char_length": 181.3,
+      "chunking_latency_ms": 0.5
+    },
+    {
+      "strategy": "metadata_aware",
+      "chunk_count": 3,
+      "avg_char_length": 192.3,
+      "chunking_latency_ms": 0.09
+    }
+  ],
+  "final_classification": {
+    "verdict": "B. Needs minor fixes",
+    "reason": "Minor failures detected: ['Retrieval Recall@5 below threshold (75.0%)']",
+    "passed_checks": [
+      "Sarvam Saaras v3 Live STT API Verification",
+      "Grounded Answer Rate (Actual: 100.0%)",
+      "Refusal Correctness Rate (Actual: 100.0%)",
+      "Adaptive Reranking Safety (Mode B MRR 0.5694 vs Mode A 0.5417)"
+    ],
+    "failed_checks": [
+      "Retrieval Recall@5 below threshold (75.0%)"
+    ]
+  },
+  "query_eval_details": [
+    {
+      "id": "q1",
+      "query": "What languages are included in the MS MARCO XI dataset?",
+      "category": "grounded",
+      "status": "success",
+      "answer": "The MS MARCO XI dataset includes Hindi, Bengali, Tamil, Telugu, and English. [Doc 2 | Strategy: metadata_aware | ID: p_101_meta_0]",
+      "target_chunk_id": "p_101_meta_0",
+      "retrieved_chunk_ids": [
+        "p_107_meta_0",
+        "p_101_meta_0",
+        "p_110_meta_0"
+      ],
+      "hit_at_5": 1.0,
+      "mrr_at_5": 0.5,
+      "precision_at_5": 0.3333333333333333,
+      "total_latency_ms": 7716.58,
+      "breakdown_ms": {
+        "stt_ms": 437.65,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.43,
+        "query_embedding_ms": 614.46,
+        "dense_retrieval_ms": 5.98,
+        "hybrid_fusion_ms": 0.11,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 942.89,
+        "llm_generation_ms": 5715.19,
+        "output_guardrail_ms": 0.18
+      },
+      "stage_modes": {
+        "stt": "LIVE_API",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q2",
+      "query": "Retrieval Augmented Generation architecture and vector database details",
+      "category": "grounded",
+      "status": "success",
+      "answer": "1.  **Analyze the User's Question:** The user wants to know about \"Retrieval Augmented Generation architecture and vector database details\". This is a two-part question:\n    *   Part 1: RAG architecture.\n    *   Part 2: Vector database details.\n\n2.  **Scan the Provided Context for Keywords:** I need to look for terms like \"Retrieval Augmented Generation\", \"RAG\", \"architecture\", \"vector database\", \"Qdrant\", \"indexing\", \"retrieval\", etc.\n\n3.  **Evaluate Each Passage Against the Question:**\n\n    *   **Doc 1 (p_102_meta_0):**\n        *   Mentions \"Retrieval-Augmented Generation (RAG)\" by name. Good.\n        *   Describes its function: \"combines semantic retrieval with large language models to produce grounded answers.\" This is a core part of the architecture.\n        *   Mentions key components: \"indexing passages into Qdrant vector database and BM25 index\". This directly addresses both parts of the question (architecture and vector database).\n        *   Mentions the retrieval method: \"hybrid retrieval\". This is a detail about the architecture.\n        *   **Conclusion:** This passage is highly relevant. It directly answers both parts of the question.\n\n    *   **Doc 2 (p_105_meta_0):**\n        *   Mentions \"Qdrant\" by name.\n        *   Describes Qdrant's features: \"high-performance vector database with payload filtering and fast ANN search designed for production RAG pipelines.\" This is a direct answer to the \"vector database details\" part of the question.\n        *   **Conclusion:** This passage is also highly relevant, specifically for the vector database details.\n\n    *   **Doc 3 (p_110_meta_0):**\n        *   Mentions \"guardrails\" in the context of RAG: \"Input Guardrail\", \"Retrieval Guardrail\", \"Output Guardrail\".\n        *   This provides additional details about the RAG *architecture*, specifically the safety components.\n        *   **Conclusion:** This passage is relevant to the \"architecture\" part of the question.\n\n4.  **Synthesize the Answer:** Now I need to combine the information from the relevant passages into a concise, grounded answer, citing the sources.\n\n    *   **For RAG Architecture:**\n        *   From Doc 1: RAG combines semantic retrieval with large language models to produce grounded answers. It uses a hybrid retrieval method.\n        *   From Doc 3: The architecture includes three levels of guardrails: Input Guardrail for query safety, Retrieval Guardrail for context score thresholding, and Output Guardrail for hallucination prevention.\n\n    *   **For Vector Database Details:**\n        *   From Doc 1: The architecture involves indexing passages into a vector database, specifically Qdrant.\n        *   From Doc 2: Qdrant is a high-performance vector database that features payload filtering and fast ANN (Approximate Nearest Neighbor) search, designed for production RAG pipelines.\n\n5.  **Construct the Final Response:** I'll structure the answer to address both parts of the user's question clearly.\n\n    *   Start with the RAG architecture.\n    *   Then, detail the vector database.\n    *   Use citations `[Doc X | ID: ...]` for each piece of information.\n    *   Keep it concise and directly answer the question.\n\n    *   *Drafting the text:*\n        *   \"Retrieval-Augmented Generation (RAG) architecture combines semantic retrieval with large language models to produce grounded answers using a hybrid retrieval method [Doc 1 | ID: p_102_meta_0].\"\n        *   \"The architecture includes three levels of guardrails: Input Guardrail for query safety, Retrieval Guardrail for context score thresholding, and Output Guardrail for hallucination prevention [Doc 3 | ID: p_110_meta_0].\"\n        *   \"The vector database used is Qdrant, which is a high-performance database designed for production RAG pipelines [Doc 2 | ID: p_105_meta_0].\"\n        *   \"Qdrant features payload filtering and fast ANN (Approximate Nearest Neighbor) search [Doc 2 | ID: p_105_meta_0].\"\n        *   \"In the RAG architecture, passages are indexed into the Qdrant vector database [Doc 1 | ID: p_102_meta_0].\"\n\n6.  **Review and Refine:** The draft is good, but I can make it flow a bit better and be more concise. I'll combine the points about Qdrant",
+      "target_chunk_id": "p_102_meta_0",
+      "retrieved_chunk_ids": [
+        "p_102_meta_0",
+        "p_105_meta_0",
+        "p_110_meta_0"
+      ],
+      "hit_at_5": 1.0,
+      "mrr_at_5": 1.0,
+      "precision_at_5": 0.3333333333333333,
+      "total_latency_ms": 8761.58,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.48,
+        "query_embedding_ms": 449.18,
+        "dense_retrieval_ms": 4.05,
+        "hybrid_fusion_ms": 0.05,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 913.0,
+        "llm_generation_ms": 7394.46,
+        "output_guardrail_ms": 0.74
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q3",
+      "query": "Sarvam Saaras v3 speech to text model features",
+      "category": "grounded",
+      "status": "success",
+      "answer": "1.  **Analyze the User's Request:** The user wants to know the \"features\" of the \"Sarvam Saaras v3 speech to text model\". The request is very specific.\n\n2.  **Scan the Provided Context:** I need to look through the three provided documents (Doc 1, Doc 2, Doc 3) and find any information about \"Sarvam Saaras v3\".\n\n3.  **Examine Doc 1:**\n    *   `[Doc 1 | Strategy: metadata_aware | ID: p_103_meta_0]`\n    *   `[Source: MSMARCO-XI-Bengali] [Lang: bn] [QueryID: q_103]`\n    *   `Sarvam Saaras v3 is a state-of-the-art Speech-to-Text model designed specifically for Indian accents and multilingual speech transcription.`\n    *   **Analysis:** This document directly mentions \"Sarvam Saaras v3\". It provides two key features:\n        *   It's \"state-of-the-art\".\n        *   It's \"designed specifically for Indian accents and multilingual speech transcription\".\n    *   This is a direct hit and contains relevant information.\n\n4.  **Examine Doc 2:**\n    *   `[Doc 2 | Strategy: metadata_aware | ID: p_106_meta_0]`\n    *   `[Source: MSMARCO-XI-English] [Lang: en] [QueryID: q_106]`\n    *   `HH Goa 2026 Shortlisting Task 2 requires building a production voice-enabled RAG system with Sarvam STT, BGE-M3, Qdrant, BM25, Sarvam-105B LLM, and 3 levels of guardrails.`\n    *   **Analysis:** This document mentions \"Sarvam STT\". It does *not* mention \"Sarvam Saaras v3\". While Sarvam Saaras v3 is a type of Speech-to-Text (STT), this passage doesn't provide any specific features of it. It only lists it as a component in a hypothetical system. So, this is not directly useful for answering the user's question about the *features* of Sarvam Saaras v3.\n\n5.  **Examine Doc 3:**\n    *   `[Doc 3 | Strategy: metadata_aware | ID: p_102_meta_0]`\n    *   `[Source: MSMARCO-XI-English] [Lang: en] [QueryID: q_102]`\n    *   `Retrieval-Augmented Generation (RAG) combines semantic retrieval with large language models to produce grounded answers. By indexing passages into Qdrant vector database and BM25 index, hybrid retrieval delivers high accuracy.`\n    *   **Analysis:** This document is about RAG (Retrieval-Augmented Generation), Qdrant, and BM25. It does not mention \"Sarvam Saaras v3\" at all. This is not relevant.\n\n6.  **Synthesize the Answer:**\n    *   The only relevant information is in Doc 1.\n    *   The question is about \"features\".\n    *   The passage in Doc 1 states: \"Sarvam Saaras v3 is a state-of-the-art Speech-to-Text model designed specifically for Indian accents and multilingual speech transcription.\"\n    *   The features I can extract from this are:\n        *   It is a state-of-the-art Speech-to-Text model.\n        *   It is designed specifically for Indian accents.\n        *   It is designed for multilingual speech transcription.\n    *   I must cite the source. The ID is `p_103_meta_0`.\n\n7.  **Format the Final Response:**\n    *   Start by directly answering the question using the extracted information.\n    *   Keep it concise and accurate.\n    *   Cite the source passage ID.\n    *   The instructions say \"Keep your response concise, accurate, and directly address the question.\" and \"Cite relevant source passage IDs where appropriate.\"\n    *   So, a good structure would be:\n        *   \"Sarvam Saaras v3 is a state-of-the-art Speech-to-Text model designed specifically for Indian accents and multilingual speech transcription.\" (This is a direct quote, which is the safest and most accurate way to be grounded).\n        *   Cite the source: `[Source: p_103_meta_0]`\n\n8.  **Final Review:** Does the answer meet all the instructions?\n    *   **Base answer ONLY on provided context?",
+      "target_chunk_id": "p_103_meta_0",
+      "retrieved_chunk_ids": [
+        "p_103_meta_0",
+        "p_106_meta_0",
+        "p_102_meta_0"
+      ],
+      "hit_at_5": 1.0,
+      "mrr_at_5": 1.0,
+      "precision_at_5": 0.3333333333333333,
+      "total_latency_ms": 7436.19,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.41,
+        "query_embedding_ms": 481.46,
+        "dense_retrieval_ms": 24.37,
+        "hybrid_fusion_ms": 0.08,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 1195.66,
+        "llm_generation_ms": 5733.84,
+        "output_guardrail_ms": 0.62
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q4",
+      "query": "BAAI BGE-M3 dense and sparse embedding dimensions",
+      "category": "grounded",
+      "status": "success",
+      "answer": "I couldn't find enough relevant information in the provided knowledge base to answer that reliably.",
+      "target_chunk_id": "p_104_meta_0",
+      "retrieved_chunk_ids": [
+        "p_104_meta_0",
+        "p_106_meta_0",
+        "p_102_meta_0"
+      ],
+      "hit_at_5": 1.0,
+      "mrr_at_5": 1.0,
+      "precision_at_5": 0.3333333333333333,
+      "total_latency_ms": 2158.85,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.6,
+        "query_embedding_ms": 477.43,
+        "dense_retrieval_ms": 5.06,
+        "hybrid_fusion_ms": 0.08,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 1235.34,
+        "llm_generation_ms": 440.82,
+        "output_guardrail_ms": 0.01
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q5",
+      "query": "Qdrant vector search and payload filtering capabilities",
+      "category": "grounded",
+      "status": "success",
+      "answer": "Qdrant is a high-performance vector database with payload filtering and fast ANN search designed for production RAG pipelines. [Doc 1 | Strategy: metadata_aware | ID: p_105_meta_0]",
+      "target_chunk_id": "p_105_meta_0",
+      "retrieved_chunk_ids": [
+        "p_105_meta_0",
+        "p_102_meta_0",
+        "p_107_meta_0"
+      ],
+      "hit_at_5": 1.0,
+      "mrr_at_5": 1.0,
+      "precision_at_5": 0.3333333333333333,
+      "total_latency_ms": 5612.92,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.79,
+        "query_embedding_ms": 378.62,
+        "dense_retrieval_ms": 6.36,
+        "hybrid_fusion_ms": 0.09,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 920.14,
+        "llm_generation_ms": 4307.48,
+        "output_guardrail_ms": 0.13
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q6",
+      "query": "এমএস মার্কো একাদশ ডেটাসেটের বিবরণ কি?",
+      "category": "grounded",
+      "status": "success",
+      "answer": "I couldn't find enough relevant information in the provided knowledge base to answer that reliably.",
+      "target_chunk_id": "p_101_meta_0",
+      "retrieved_chunk_ids": [
+        "p_109_meta_0",
+        "p_103_meta_0"
+      ],
+      "hit_at_5": 0.0,
+      "mrr_at_5": 0.0,
+      "precision_at_5": 0.0,
+      "total_latency_ms": 1722.91,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.73,
+        "query_embedding_ms": 498.71,
+        "dense_retrieval_ms": 11.03,
+        "hybrid_fusion_ms": 0.05,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 655.77,
+        "llm_generation_ms": 557.17,
+        "output_guardrail_ms": 0.01
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q7",
+      "query": "हिंदी में एमएस मार्को dataset की जानकारी दीजिए",
+      "category": "grounded",
+      "status": "success",
+      "answer": "1.  **Analyze the User's Question:** The user wants to know about the \"MS MARCO dataset in Hindi\". This is a straightforward request for information about a specific dataset.\n\n2.  **Scan the Provided Context for Keywords:** I'll look for \"MS MARCO\", \"Hindi\", \"dataset\", \"information\", \"purpose\", \"benchmarking\", etc.\n\n3.  **Evaluate Each Context Passage:**\n    *   **Doc 1 (ID: p_108_meta_0):**\n        *   `[Source: MSMARCO-XI-Hindi]`: This directly links the passage to the MS MARCO dataset for Hindi.\n        *   `[Lang: hi]`: The language is Hindi.\n        *   `[QueryID: q_108]`: An identifier.\n        *   `एमएस मार्को dataset का मुख्य उद्देश्य भारतीय भाषाओं के लिए सटीक इनफार्मेशन रिट्रीवल और सर्च एल्गोरिदम का मूल्यांकन करना है।`: This translates to \"The main purpose of the MS MARCO dataset is to evaluate precise information retrieval and search algorithms for Indian languages.\" This is a very relevant piece of information. It directly answers *what the purpose* of the dataset is.\n\n    *   **Doc 2 (ID: p_101_meta_0):**\n        *   `[Source: MSMARCO-XI-Hindi]`: Again, links to the dataset.\n        *   `[Lang: hi]`: Language is Hindi.\n        *   `[QueryID: q_101]`: An identifier.\n        *   `MS MARCO-XI is a multilingual retrieval dataset created for benchmarking information retrieval in Indian languages including Hindi, Bengali, Tamil, Telugu, and English.`: This is also highly relevant. It describes what the dataset *is* (multilingual retrieval dataset), what it's for (benchmarking information retrieval), and lists the languages it covers, explicitly mentioning Hindi.\n\n4.  **Synthesize the Findings:**\n    *   Both passages provide information about the MS MARCO dataset, specifically the MS MARCO-XI-Hindi version.\n    *   Doc 1 states its *purpose*: \"to evaluate precise information retrieval and search algorithms for Indian languages.\"\n    *   Doc 2 states its *nature and scope*: \"a multilingual retrieval dataset created for benchmarking information retrieval in Indian languages including Hindi...\"\n\n5.  **Formulate the Answer:**\n    *   I need to combine these points into a concise, grounded answer.\n    *   Start with the most direct information. Doc 2 gives a broader definition. Doc 1 gives the specific purpose.\n    *   A good structure would be:\n        1.  Define what the MS MARCO-XI-Hindi dataset is (multilingual retrieval dataset).\n        2.  State its purpose (benchmarking information retrieval).\n        3.  Mention the languages it covers, including Hindi.\n        4.  Optionally, add the specific purpose from Doc 1.\n\n6.  **Drafting the Answer (internal monologue):**\n    *   \"The MS MARCO-XI-Hindi dataset is a multilingual retrieval dataset.\" (From Doc 2)\n    *   \"It was created for benchmarking information retrieval.\" (From Doc 2)\n    *   \"It includes Hindi, Bengali, Tamil, Telugu, and English.\" (From Doc 2)\n    *   \"The main purpose of the MS MARCO dataset is to evaluate precise information retrieval and search algorithms for Indian languages.\" (From Doc 1)\n\n    *   Let's combine these smoothly.\n    *   \"Based on the provided context, the MS MARCO-XI-Hindi dataset is a multilingual retrieval dataset created for benchmarking information retrieval. It includes Hindi, Bengali, Tamil, Telugu, and English. The main purpose of the dataset is to evaluate precise information retrieval and search algorithms for Indian languages.\"\n\n7.  **Final Polish and Citation:**\n    *   The drafted answer is good. It's concise and directly uses the information from the passages.\n    *   Now, I need to add the citations. The information comes from both Doc 1 and Doc 2.\n    *   I'll cite them at the end of the relevant sentences or as a combined citation.\n    *   Let's try citing each piece of information to be precise.\n        *   \"The MS MARCO-XI-Hindi dataset is a multilingual retrieval dataset created for benchmarking information retrieval in Indian languages including Hindi, Bengali, Tamil, Telugu, and English [Doc 2 | Strategy: metadata_aware | ID: p_101_meta_0].\"\n        *   \"The main purpose of the MS MARCO dataset is to evaluate precise information retrieval and search algorithms for Indian languages [Doc 1 | Strategy: metadata_aware",
+      "target_chunk_id": "p_101_meta_0",
+      "retrieved_chunk_ids": [
+        "p_108_meta_0",
+        "p_101_meta_0"
+      ],
+      "hit_at_5": 1.0,
+      "mrr_at_5": 0.5,
+      "precision_at_5": 0.5,
+      "total_latency_ms": 7767.67,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.03,
+        "bm25_ms": 0.5,
+        "query_embedding_ms": 405.53,
+        "dense_retrieval_ms": 5.38,
+        "hybrid_fusion_ms": 0.04,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 431.37,
+        "llm_generation_ms": 6921.05,
+        "output_guardrail_ms": 4.18
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q8",
+      "query": "தமிழ் மொழியில் பெறப்பட்ட விவரங்கள் என்ன?",
+      "category": "grounded",
+      "status": "success",
+      "answer": "BAAI BGE-M3 is a powerful dense embedding model supporting dense retrieval, sparse retrieval, and multi-vector retrieval across 100+ languages.\n\n[Source: MSMARCO-XI-Tamil] [Lang: ta] [QueryID: q_104]",
+      "target_chunk_id": "p_101_meta_0",
+      "retrieved_chunk_ids": [
+        "p_104_meta_0"
+      ],
+      "hit_at_5": 0.0,
+      "mrr_at_5": 0.0,
+      "precision_at_5": 0.0,
+      "total_latency_ms": 1585.73,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.04,
+        "bm25_ms": 0.86,
+        "query_embedding_ms": 467.13,
+        "dense_retrieval_ms": 7.14,
+        "hybrid_fusion_ms": 0.03,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 465.94,
+        "llm_generation_ms": 645.27,
+        "output_guardrail_ms": 0.09
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q9",
+      "query": "తెలుగు సేకరణ ఆధారంగా వివరాలు వివరించండి",
+      "category": "grounded",
+      "status": "success",
+      "answer": "Qdrant అనేది ప్రొడక్షన్ RAG పైప్‌లైన్‌ల కోసం రూపొందించబడిన, పేలోడ్ ఫిల్టరింగ్ మరియు వేగవంతమైన ANN సెర్చ్ సౌకర్యం కలిగిన ఒక హై-పెర్ఫార్మెన్స్ వెక్టర్ డేటాబేస్.",
+      "target_chunk_id": "p_101_meta_0",
+      "retrieved_chunk_ids": [
+        "p_105_meta_0"
+      ],
+      "hit_at_5": 0.0,
+      "mrr_at_5": 0.0,
+      "precision_at_5": 0.0,
+      "total_latency_ms": 1200.89,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.71,
+        "query_embedding_ms": 335.34,
+        "dense_retrieval_ms": 3.27,
+        "hybrid_fusion_ms": 0.02,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 399.71,
+        "llm_generation_ms": 462.26,
+        "output_guardrail_ms": 0.19
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q10",
+      "query": "How does BM25 keyword search combine with Qdrant vector search?",
+      "category": "grounded",
+      "status": "success",
+      "answer": "I couldn't find enough relevant information in the provided knowledge base to answer that reliably.",
+      "target_chunk_id": "p_102_meta_0",
+      "retrieved_chunk_ids": [
+        "p_102_meta_0",
+        "p_105_meta_0",
+        "p_106_meta_0"
+      ],
+      "hit_at_5": 1.0,
+      "mrr_at_5": 1.0,
+      "precision_at_5": 0.3333333333333333,
+      "total_latency_ms": 1316.4,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.34,
+        "query_embedding_ms": 373.73,
+        "dense_retrieval_ms": 8.05,
+        "hybrid_fusion_ms": 0.08,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 666.28,
+        "llm_generation_ms": 268.14,
+        "output_guardrail_ms": 0.0
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q11",
+      "query": "What is the stock price of Apple Inc in 2026?",
+      "category": "insufficient_context",
+      "status": "success",
+      "answer": "I couldn't find enough relevant information in the provided knowledge base to answer that reliably.",
+      "target_chunk_id": null,
+      "retrieved_chunk_ids": [
+        "p_110_meta_0",
+        "p_107_meta_0",
+        "p_101_meta_0"
+      ],
+      "hit_at_5": 0.0,
+      "mrr_at_5": 0.0,
+      "precision_at_5": 0.0,
+      "total_latency_ms": 5918.83,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.01,
+        "bm25_ms": 0.38,
+        "query_embedding_ms": 350.66,
+        "dense_retrieval_ms": 5.44,
+        "hybrid_fusion_ms": 0.09,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 810.94,
+        "llm_generation_ms": 4751.6,
+        "output_guardrail_ms": 0.01
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q12",
+      "query": "How do you bake a chocolate chip cookie?",
+      "category": "off_topic",
+      "status": "success",
+      "answer": "I couldn't find enough relevant information in the provided knowledge base to answer that reliably.",
+      "target_chunk_id": null,
+      "retrieved_chunk_ids": [
+        "p_106_meta_0",
+        "p_107_meta_0",
+        "p_110_meta_0"
+      ],
+      "hit_at_5": 0.0,
+      "mrr_at_5": 0.0,
+      "precision_at_5": 0.0,
+      "total_latency_ms": 1374.52,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.47,
+        "query_embedding_ms": 444.24,
+        "dense_retrieval_ms": 20.06,
+        "hybrid_fusion_ms": 3.91,
+        "retrieval_guardrail_ms": 0.02,
+        "reranking_ms": 656.19,
+        "llm_generation_ms": 249.9,
+        "output_guardrail_ms": 0.01
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q13",
+      "query": "When did Albert Einstein invent the Python programming language in 1991?",
+      "category": "hallucination_prone",
+      "status": "success",
+      "answer": "I couldn't find enough relevant information in the provided knowledge base to answer that reliably.",
+      "target_chunk_id": null,
+      "retrieved_chunk_ids": [
+        "p_107_meta_0",
+        "p_102_meta_0",
+        "p_110_meta_0"
+      ],
+      "hit_at_5": 0.0,
+      "mrr_at_5": 0.0,
+      "precision_at_5": 0.0,
+      "total_latency_ms": 6170.5,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.64,
+        "query_embedding_ms": 404.11,
+        "dense_retrieval_ms": 4.55,
+        "hybrid_fusion_ms": 0.05,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 624.04,
+        "llm_generation_ms": 5137.64,
+        "output_guardrail_ms": 0.01
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q14",
+      "query": "Fixed-size vs Sentence vs Semantic chunking strategy comparison",
+      "category": "grounded",
+      "status": "success",
+      "answer": "I couldn't find enough relevant information in the provided knowledge base to answer that reliably.",
+      "target_chunk_id": "p_102_meta_0",
+      "retrieved_chunk_ids": [
+        "p_107_meta_0",
+        "p_102_meta_0",
+        "p_110_meta_0"
+      ],
+      "hit_at_5": 1.0,
+      "mrr_at_5": 0.5,
+      "precision_at_5": 0.3333333333333333,
+      "total_latency_ms": 6749.0,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.58,
+        "query_embedding_ms": 453.3,
+        "dense_retrieval_ms": 3.36,
+        "hybrid_fusion_ms": 0.04,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 2493.26,
+        "llm_generation_ms": 3798.94,
+        "output_guardrail_ms": 0.01
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    },
+    {
+      "id": "q15",
+      "query": "Full process latency target under 200 ms optimization",
+      "category": "grounded",
+      "status": "success",
+      "answer": "I couldn't find enough relevant information in the provided knowledge base to answer that reliably.",
+      "target_chunk_id": "p_102_meta_0",
+      "retrieved_chunk_ids": [
+        "p_101_meta_0",
+        "p_107_meta_0",
+        "p_102_meta_0"
+      ],
+      "hit_at_5": 1.0,
+      "mrr_at_5": 0.3333333333333333,
+      "precision_at_5": 0.3333333333333333,
+      "total_latency_ms": 1595.15,
+      "breakdown_ms": {
+        "stt_ms": 0.0,
+        "input_guardrail_ms": 0.02,
+        "bm25_ms": 0.8,
+        "query_embedding_ms": 450.76,
+        "dense_retrieval_ms": 5.41,
+        "hybrid_fusion_ms": 0.06,
+        "retrieval_guardrail_ms": 0.01,
+        "reranking_ms": 847.6,
+        "llm_generation_ms": 291.21,
+        "output_guardrail_ms": 0.0
+      },
+      "stage_modes": {
+        "stt": "TEXT_QUERY_DIRECT",
+        "bm25": "LOCAL_INDEX",
+        "query_embedding": "LIVE_API",
+        "dense_retrieval": "QDRANT_LOCAL",
+        "hybrid_fusion": "RRF_FUSION",
+        "reranking": "LIVE_API",
+        "llm_generation": "LIVE_API"
+      }
+    }
+  ]
+}
