@@ -1,4 +1,4 @@
-const API_BASE = '/api';
+const API_BASE = 'https://voice-based-rag.onrender.com/api';
 
 export async function sendQuery({ audioBlob, textQuery, strategyOverride = 'auto', languageFilter = '' }) {
   const formData = new FormData();
