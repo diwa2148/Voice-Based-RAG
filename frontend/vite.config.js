@@ -6,6 +6,7 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3000,
+    allowedHosts: ['voice-enabled-rag-frontend.onrender.com'],
     proxy: {
       '/api': {
         target: 'http://localhost:8000',
