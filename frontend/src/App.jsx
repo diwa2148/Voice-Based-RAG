@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { Mic, Sparkles, Activity, ShieldCheck, Cpu, Volume2, Award } from 'lucide-react';
+import { Award } from 'lucide-react';
 import VoiceInput from './components/VoiceInput';
 import StrategySelector from './components/StrategySelector';
 import LatencyBreakdown from './components/LatencyBreakdown';
 import QueryResult from './components/QueryResult';
 import SourceViewer from './components/SourceViewer';
+import ErrorBanner from './components/ErrorBanner';
+import BenchmarkResult from './components/BenchmarkResult';
 import { sendQuery, runBenchmark, checkHealth } from './services/api';
 
 export default function App() {
   const [selectedStrategy, setSelectedStrategy] = useState('auto');
   const [queryResult, setQueryResult] = useState(null);
+  const [currentQuery, setCurrentQuery] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
   const [benchmarkLoading, setBenchmarkLoading] = useState(false);
+  const [benchmarkData, setBenchmarkData] = useState(null);
   const [healthStatus, setHealthStatus] = useState(null);
 
   useEffect(() => {
@@ -21,7 +26,14 @@ export default function App() {
   }, []);
 
   const handleQuerySubmit = async ({ audioBlob, textQuery }) => {
+    if (isLoading) return; // Prevent duplicate requests
+
     setIsLoading(true);
+    // Clear stale state for clean lifecycle
+    setQueryResult(null);
+    setErrorMessage(null);
+    setBenchmarkData(null);
+
     try {
       const res = await sendQuery({
         audioBlob,
@@ -29,23 +41,39 @@ export default function App() {
         strategyOverride: selectedStrategy
       });
       setQueryResult(res);
+      // Synchronize text state with backend returned STT transcription/query
+      setCurrentQuery(res.transcription || res.query || textQuery || '');
     } catch (err) {
-      alert(`Error processing query: ${err.message}`);
+      setErrorMessage({
+        title: 'Query Processing Error',
+        message: err.message || 'Unable to process query. Please check your network connection or backend server status.'
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
   const handleRunBenchmark = async () => {
+    if (benchmarkLoading) return;
+
     setBenchmarkLoading(true);
+    setErrorMessage(null);
+
     try {
       const report = await runBenchmark();
-      alert(`Benchmark Suite Completed!\n\nQueries Tested: ${report.total_queries_tested}\nBottleneck Stage: ${report.bottleneck_stage} (${report.bottleneck_p50_ms} ms)\nOverall P50 Latency: ${report.percentiles.total_latency_ms?.p50} ms\nOverall P70 Latency: ${report.percentiles.total_latency_ms?.p70} ms\nOverall P100 Latency: ${report.percentiles.total_latency_ms?.p100} ms`);
+      setBenchmarkData(report);
     } catch (err) {
-      alert(`Benchmark failed: ${err.message}`);
+      setErrorMessage({
+        title: 'Benchmark Suite Failed',
+        message: err.message || 'Failed to execute performance benchmark suite.'
+      });
     } finally {
       setBenchmarkLoading(false);
     }
+  };
+
+  const handleVoiceError = (errObj) => {
+    setErrorMessage(errObj);
   };
 
   return (
@@ -65,6 +93,18 @@ export default function App() {
         </p>
       </header>
 
+      {/* In-Page Error Banner */}
+      <ErrorBanner
+        error={errorMessage}
+        onDismiss={() => setErrorMessage(null)}
+      />
+
+      {/* In-Page Benchmark Results Card */}
+      <BenchmarkResult
+        report={benchmarkData}
+        onDismiss={() => setBenchmarkData(null)}
+      />
+
       {/* Chunking Strategy Selector */}
       <StrategySelector
         selectedStrategy={selectedStrategy}
@@ -73,7 +113,12 @@ export default function App() {
       />
 
       {/* Voice & Text Input Component */}
-      <VoiceInput onSubmit={handleQuerySubmit} isLoading={isLoading} />
+      <VoiceInput
+        onSubmit={handleQuerySubmit}
+        isLoading={isLoading}
+        currentQuery={currentQuery}
+        onError={handleVoiceError}
+      />
 
       {/* Latency Breakdown Bar Chart */}
       {queryResult && (
@@ -89,7 +134,12 @@ export default function App() {
       {queryResult && <QueryResult result={queryResult} />}
 
       {/* Context Source Viewer */}
-      {queryResult && <SourceViewer chunks={queryResult.retrieved_chunks} />}
+      {queryResult && (
+        <SourceViewer
+          chunks={queryResult.retrieved_chunks}
+          requestId={queryResult.request_id}
+        />
+      )}
 
       {/* Footer */}
       <footer style={{ marginTop: '48px', textAlign: 'center', fontSize: '0.78rem', color: 'var(--text-dim)', borderTop: '1px solid var(--bg-card-border)', paddingTop: '20px' }}>

@@ -1,7 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { Mic, MicOff, Send, Sparkles, AlertCircle } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Mic, MicOff, Send, Sparkles, AlertCircle, Loader2 } from 'lucide-react';
 
-export default function VoiceInput({ onSubmit, isLoading }) {
+export default function VoiceInput({ onSubmit, isLoading, currentQuery, onError }) {
   const [isRecording, setIsRecording] = useState(false);
   const [textInput, setTextInput] = useState('');
   const [audioBlob, setAudioBlob] = useState(null);
@@ -9,7 +9,25 @@ export default function VoiceInput({ onSubmit, isLoading }) {
   const mediaRecorderRef = useRef(null);
   const audioChunksRef = useRef([]);
 
+  // Sync displayed text with backend's returned transcription or submitted query
+  useEffect(() => {
+    if (currentQuery !== undefined && currentQuery !== null) {
+      setTextInput(currentQuery);
+    }
+  }, [currentQuery]);
+
+  const clearAudioState = () => {
+    if (audioUrl) {
+      URL.revokeObjectURL(audioUrl);
+    }
+    setAudioBlob(null);
+    setAudioUrl(null);
+  };
+
   const startRecording = async () => {
+    if (isLoading) return;
+    clearAudioState();
+
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaRecorderRef.current = new MediaRecorder(stream);
@@ -34,7 +52,12 @@ export default function VoiceInput({ onSubmit, isLoading }) {
       setIsRecording(true);
     } catch (err) {
       console.error('Microphone access denied:', err);
-      alert('Microphone access is required for voice input. You can also type your query below.');
+      if (onError) {
+        onError({
+          title: 'Microphone Access Denied',
+          message: 'Microphone access is required for voice queries. Please allow microphone permissions or type your question below.'
+        });
+      }
     }
   };
 
@@ -48,7 +71,8 @@ export default function VoiceInput({ onSubmit, isLoading }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (textInput.trim() && !isLoading) {
+    if (textInput.trim() && !isLoading && !isRecording) {
+      clearAudioState();
       onSubmit({ textQuery: textInput.trim() });
     }
   };
@@ -57,7 +81,7 @@ export default function VoiceInput({ onSubmit, isLoading }) {
     <div className="glass-panel" style={{ padding: '24px', marginBottom: '24px' }}>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '20px' }}>
         
-        {/* Big Interactive Microphone Button */}
+        {/* Interactive Microphone Button */}
         <div style={{ textAlign: 'center' }}>
           <button
             type="button"
@@ -71,19 +95,26 @@ export default function VoiceInput({ onSubmit, isLoading }) {
               padding: '0',
               justifyContent: 'center',
               fontSize: '1.5rem',
+              opacity: isLoading ? 0.6 : 1,
+              cursor: isLoading ? 'not-allowed' : 'pointer',
               boxShadow: isRecording ? '0 0 30px #ef4444' : '0 8px 32px var(--primary-glow)'
             }}
           >
             {isRecording ? <MicOff size={36} /> : <Mic size={36} />}
           </button>
-          <p style={{ marginTop: '12px', fontSize: '0.875rem', color: isRecording ? '#f87171' : 'var(--text-muted)' }}>
-            {isRecording ? '● Listening... Click to stop & send' : 'Click microphone to speak your question'}
+
+          <p style={{ marginTop: '12px', fontSize: '0.875rem', fontWeight: '500', color: isRecording ? '#f87171' : 'var(--text-muted)' }}>
+            {isRecording
+              ? '🎙 Listening... Click to stop & send'
+              : isLoading
+              ? '⏳ Processing query & generating answer...'
+              : 'Click microphone to speak your question'}
           </p>
         </div>
 
-        <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '12px', margin: '8px 0' }}>
+        <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '12px', margin: '4px 0' }}>
           <div style={{ flex: 1, height: '1px', background: 'var(--bg-card-border)' }} />
-          <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase' }}>OR TYPE YOUR QUERY</span>
+          <span style={{ fontSize: '0.75rem', color: 'var(--text-dim)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>OR TYPE YOUR QUERY</span>
           <div style={{ flex: 1, height: '1px', background: 'var(--bg-card-border)' }} />
         </div>
 
@@ -93,7 +124,7 @@ export default function VoiceInput({ onSubmit, isLoading }) {
             type="text"
             value={textInput}
             onChange={(e) => setTextInput(e.target.value)}
-            placeholder="Ask anything about MS MARCO XI, languages, or RAG architecture..."
+            placeholder={isLoading ? "Processing request..." : "Ask anything about MS MARCO XI, languages, or RAG architecture..."}
             disabled={isLoading || isRecording}
             style={{
               flex: 1,
@@ -105,21 +136,26 @@ export default function VoiceInput({ onSubmit, isLoading }) {
               fontSize: '0.95rem',
               fontFamily: 'var(--font-sans)',
               outline: 'none',
-              transition: 'all 0.2s'
+              transition: 'all 0.2s',
+              opacity: (isLoading || isRecording) ? 0.6 : 1
             }}
           />
           <button
             type="submit"
             className="glow-btn"
             disabled={isLoading || isRecording || !textInput.trim()}
+            style={{
+              opacity: (isLoading || isRecording || !textInput.trim()) ? 0.5 : 1,
+              cursor: (isLoading || isRecording || !textInput.trim()) ? 'not-allowed' : 'pointer'
+            }}
           >
-            {isLoading ? <Sparkles className="spin" size={18} /> : <Send size={18} />}
-            <span>Ask</span>
+            {isLoading ? <Loader2 className="spin" size={18} /> : <Send size={18} />}
+            <span>{isLoading ? 'Processing...' : 'Ask'}</span>
           </button>
         </form>
 
         {audioUrl && (
-          <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(0,0,0,0.2)', padding: '10px 14px', borderRadius: '10px' }}>
+          <div style={{ width: '100%', display: 'flex', alignItems: 'center', gap: '12px', background: 'rgba(0,0,0,0.25)', padding: '10px 14px', borderRadius: '10px', border: '1px solid var(--bg-card-border)' }}>
             <span style={{ fontSize: '0.8rem', color: 'var(--text-muted)' }}>Recorded Audio:</span>
             <audio src={audioUrl} controls style={{ height: '32px', flex: 1 }} />
           </div>
