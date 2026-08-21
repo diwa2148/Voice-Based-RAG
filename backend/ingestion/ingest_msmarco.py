@@ -217,7 +217,7 @@ async def ingest_dataset(seed_only: bool = False, max_passages: int = 50):
     all_chunks = []
 
     STRATEGIES = [
-        "fixed",
+        "fixed_size",
         "fixed_overlap",
         "sentence",
         "paragraph",
