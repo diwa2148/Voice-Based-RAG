@@ -215,6 +215,17 @@ async def ingest_dataset(seed_only: bool = False, max_passages: int = 50):
     logger.info(f"Processing total of {len(passages_to_process)} passages through Chunking Strategies...")
 
     all_chunks = []
+
+    STRATEGIES = [
+        "fixed",
+        "fixed_overlap",
+        "sentence",
+        "paragraph",
+        "recursive",
+        "semantic",
+        "metadata_aware"
+    ]
+
     for item in passages_to_process:
         meta = {
             "query_id": item.get("query_id"),
@@ -225,9 +236,16 @@ async def ingest_dataset(seed_only: bool = False, max_passages: int = 50):
             "query_type": item.get("query_type"),
             "source": item.get("source")
         }
+
         meta = {k: v for k, v in meta.items() if v is not None}
-        chunks = chunk_text(item["text"], strategy_name="auto", metadata=meta)
-        all_chunks.extend(chunks)
+
+        for strategy in STRATEGIES:
+            chunks = chunk_text(
+                item["text"],
+                strategy_name=strategy,
+                metadata=meta
+            )
+            all_chunks.extend(chunks)
 
     logger.info(f"Generated {len(all_chunks)} chunks. Generating embeddings via BGE-M3...")
 
